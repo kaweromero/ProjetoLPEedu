@@ -1,4 +1,4 @@
-#logoLinux {
+#logoLinux_large {
 	width: 141px;
 	height: 140px;
 	display: block;
@@ -6,6 +6,8 @@
 	
 }
 
-#bodyRegistro {
-	background-color: Coral ;
+#logoLinux_small {
+	width: 40px;
+	height: 40px;
+	margin: center;
 }

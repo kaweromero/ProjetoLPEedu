@@ -1,0 +1,30 @@
+#login-dropdown{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dropdown .help-block{
+    font-size:12px    
+}
+#login-dropdown .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+
+#login-dropdown .form-group {
+    margin-bottom: 10px;
+}
+
+@media(max-width:768px){
+    #login-dropdown{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dropdown .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}
