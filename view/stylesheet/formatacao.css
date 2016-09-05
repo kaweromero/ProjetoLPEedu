@@ -28,3 +28,15 @@
         border-top:0 none;
     }
 }
+
+.textoCentralizado {
+	text-align: center;
+}
+
+.margemTop20px {
+	margin-top: 20px;
+}
+
+.margemTop30px {
+	margin-top: 30px;
+}
