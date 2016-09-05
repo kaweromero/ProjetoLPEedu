@@ -7,9 +7,9 @@
 	border: 0px;
 }
 
-#componenteDoMenuAtivado {
+.componenteDoMenuAtivado {
 	background-color: #ff7c4d;
-	color: #ffffff
+	color: #ffffff;
 }
 
 .panel-default > .panel-heading-corPreta{
@@ -17,5 +17,11 @@
   background-color: #4D4D4D;
   color: #ffffff;
 }
-	
 
+.textoBranco {
+	color: #ffffff;
+}
+
+.corLaranja {
+	background-color: #ff8566;
+}
