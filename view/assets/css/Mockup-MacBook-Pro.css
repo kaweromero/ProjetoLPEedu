@@ -1,0 +1,37 @@
+div.macbook-mockup{
+  position:relative;
+  max-width:1000px;
+  margin:20px;
+}
+
+.macbook-mockup img.device{
+  width:100%;
+  height:auto;
+}
+
+.macbook-mockup .screen{
+  position:absolute;
+  width:76%;
+  height:82.5%;
+  top:6.5%;
+  border-radius:4px;
+  left:12%;
+  background-color:#aaa;
+  overflow:hidden;
+  background:url(../../assets/img/screen-content-macbook.jpg);
+  background-size:cover;
+  background-position:center;
+}
+
+.macbook-mockup .screen:before{
+  content:'';
+  background-color:#fff;
+  position:absolute;
+  width:70%;
+  height:140%;
+  top:-26%;
+  right:-39%;
+  transform:rotate(-19deg);
+  opacity:0.1;
+}
+
