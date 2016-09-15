@@ -115,10 +115,10 @@
 					<!-- Action é acionado após clicar no botão de CRIAR CONTA -->
 					<!-- O sistema direciona para a próxima página a ser chamada -->
 					<!-- Início do formulário -->
-					<form action="index.html" method="post">
+					<form action="index.html" method="post" action="PHP/novoRegistro.php" >
 						<div class="input-group">
 							<span class="input-group-addon" id="nome">Nome</span>
-							<input type="text" class="form-control" placeholder="Nome do Usuário" aria-describedby="nome">
+							<input type="text" class="form-control" placeholder="Nome do Usuário" aria-describedby="nome" name="nome">
 						</div>
 						
 						<!-- pular linha -->
@@ -126,7 +126,7 @@
 						
 						<div class="input-group">
 							<span class="input-group-addon" id="email">E-Mail</span>
-							<input type="text" class="form-control" placeholder="E-Mail" aria-describedby="email">
+							<input type="text" class="form-control" placeholder="E-Mail" aria-describedby="email" name="email">
 						</div>
 						
 						<!-- pular linha -->
@@ -134,10 +134,10 @@
 						
 						<div class="input-group">
 							<span class="input-group-addon" id="dataDeNascimento">Data de Nascimento</span>
-							<input type="date" class="form-control" placeholder="" aria-describedby="dataDeNascimento">
+							<input type="date" class="form-control" placeholder="" aria-describedby="dataDeNascimento" name="dataDeNascimento">
 
 							<span class="input-group-addon" id="genero">Gênero</span>
-							<select class="form-control" for="genero">
+							<select class="form-control" for="genero" name="genero">
 								<option>Feminino</option>
 								<option>Masculino</option>
 							</select>
@@ -148,10 +148,10 @@
 						
 						<div class="input-group">
 							<span class="input-group-addon" id="senha1">Senha</span>
-							<input type="password" class="form-control" placeholder="Senha" aria-describedby="senha">
+							<input type="password" class="form-control" placeholder="Senha" aria-describedby="senha" name="senha">
 							
 							<span class="input-group-addon" id="senha2">Confirmar Senha</span>
-							<input type="password" class="form-control" placeholder="Confirme sua senha" aria-describedby="senha2">
+							<input type="password" class="form-control" placeholder="Confirme sua senha" aria-describedby="senha2" name="senha2">
 						</div>
 						
 						<!-- pular linha -->
