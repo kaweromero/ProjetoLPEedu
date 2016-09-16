@@ -2,14 +2,15 @@
 	background-color: #ff7c4d;
 }
 
-#barraDeMenu {
+.barraDeMenu {
 	background-color: #4D4D4D;
 	border: 0px;
+	color: #ffffff;
 }
 
 .componenteDoMenuAtivado {
 	background-color: #ff7c4d;
-	color: #ffffff;
+	
 }
 
 .panel-default > .panel-heading-corPreta{
