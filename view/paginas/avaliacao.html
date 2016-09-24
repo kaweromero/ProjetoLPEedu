@@ -41,7 +41,7 @@
 					<ul class="nav navbar-nav textoBranco">
 					
 						<!-- links do menu-->
-						<li class="componenteDoMenuAtivado"><a href="#">Início</a></li>
+						<li><a href="#">Início</a></li>
 						<li><a href="sobre.html">Sobre</a></li>
 						<li><a href="#">Guia do Jogo</a></li>
 					</ul>
@@ -50,47 +50,116 @@
 					<ul class="nav navbar-nav navbar-right">
 					
 						<!-- links do menu-->
-						<li><a href="cadastro.html">Cadastrar</a></li>
+						<li><a>Pontuação: 100 pontos</a></li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Entrar<span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Nome do Usuário<span class="caret"></span></a>
 							<ul id="login-dropdown" class="dropdown-menu">
 								<li>
 									<div class="row">
 										<div class="col-md-12">
 											<form class="form" role="form" method="post" action="#" accept-charset="UTF-8" id="login-nav">
+											
 												<div class="form-group">
-													<label class="sr-only" for="email">E-mail</label>
-													<input type="email" class="form-control" id="email" placeholder="E-mail">
+													<button type="submit" class="btn btn-primary btn-block">Perfil</button>
 												</div>
 												
 												<div class="form-group">
-													<label class="sr-only" for="senha">Senha</label>
-													<input type="password" class="form-control" id="senha" placeholder="Senha">
-													<div class="help-block text-right"><a href="#">Esqueceu a senha?</a></div>
+													<button type="submit" class="btn btn-danger btn-block">Sair</button>
 												</div>
-												<div class="form-group">
-													<button type="submit" class="btn btn-primary btn-block">Entrar</button>
-												</div>
-												<div class="checkbox">
-													<label>
-														<input type="checkbox"> mantenha-me conectado
-													</label>
-												</div>
+												
 											</form>
-										</div>
-										
-										<div class="bottom text-center">
-											Novo aqui? <a href="cadastro.html"><b>Se cadastre</b></a>
 										</div>
 									</div>
 								</li>
 							</ul>
 						</li>
 					</ul>
+					
 				</div>
 			</div>
 		</nav>
 		<!-- fim da barra de menu -->
+		
+		<!-- início do panel principal -->
+		<div class="container">
+		
+			<div class="row">
+			
+				<div class="col-md-2">
+					<div class="container">
+						<img src="../imagens/userIcon.png" alt="" class="img-thumbnail">
+					</div>
+				</div>
+				
+				<div class="col-md-8">
+				
+					<div class="container-fluid">
+			
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Número da Etapa</h3>
+							</div>
+							
+							<div class="panel-body">
+								<h5>1</h5>
+							</div>
+						</div>
+		
+					</div>
+					
+					<div class="container-fluid">
+			
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Desempenho</h3>
+							</div>
+							
+							<div class="panel-body">
+								
+								<div class="progress">
+									<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+										 <label for="aria-valuenow">60%</label>
+									</div>
+									<div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+										 <label for="aria-valuenow">40%</label>
+									</div>
+								</div>
+							
+							</div>
+							
+						</div>
+		
+					</div>
+					
+					<div class="container-fluid">
+			
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Questões Incorretas</h3>
+							</div>
+							
+							<div class="panel-body">
+								<h3>
+									<span class="label label-danger">1</span>
+									<span class="label label-danger">2</span>
+									<span class="label label-danger">4</span>
+									<span class="label label-danger">9</span>
+								</h3>
+							</div>
+							
+						</div>
+		
+					</div>
+					
+					<div class="container-fluid">
+						<button type="button" class="btn btn-primary">Refazer esta etapa</button>
+						<button type="button" class="btn btn-success">Próxima Etapa</button>
+					</div>
+				
+				</div>
+			</div>
+		
+		</div>
 		
 	</body>
 </html>
