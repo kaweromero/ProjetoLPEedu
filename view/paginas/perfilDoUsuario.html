@@ -7,12 +7,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Avaliação</title>
+		<title>Perfil do usuário</title>
 		
 		<!-- Bootstrap -->
 		<link href="../stylesheet/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="../javascript/jquery-3.1.1.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="../stylesheet/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 		
@@ -33,7 +33,7 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">
 						<img src="../imagens/linuxLogo_small.png" id="linuxLogo_small">
-					</a>
+					</a>	
 				</div>
 				
 				<div id="navbar" class="navbar-collapse">
@@ -84,82 +84,84 @@
 		<div class="container">
 		
 			<div class="row">
-			
-				<div class="col-md-2">
-					<div class="container">
-						<img src="../imagens/userIcon.png" alt="" class="img-thumbnail">
-					</div>
-				</div>
 				
-				<div class="col-md-10">
-				
-					<div class="container-fluid">
-			
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h3 class="panel-title">Número da Etapa</h3>
-							</div>
-							
-							<div class="panel-body">
-								<h5>1</h5>
+				<div class="col-md-12">
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#home">Perfil</a></li>
+						<li><a data-toggle="tab" href="#menu1">Desempenho</a></li>
+					</ul>
+
+					<div class="tab-content">
+					
+						<div id="home" class="tab-pane fade in active">
+							<div class="panel panel-default">
+								<div class="panel-body">
+
+									<div class="container">
+										<div class="row">
+											
+											<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+													
+												<div class="panel panel-info">
+													<div class="panel-heading">
+														<h3 class="panel-title">Lucas Milleno</h3>
+													</div>
+														
+													<div class="panel-body">
+														<div class="row">
+															<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="../imagens/perfil_lucasmilleno.jpg" class="img-circle img-responsive"> </div>
+                
+																<div class=" col-md-9 col-lg-9 "> 
+																	<table class="table table-user-information">
+																		<tbody>
+																			<tr>
+																				<td>Data de Nascimento</td>
+																				<td>01/12/1990</td>
+																			</tr>
+
+																			<tr>
+																				<td>Gênero</td>
+																				<td>Masculino</td>
+																			</tr>
+																			
+																			<tr>
+																				<td>Endereço</td>
+																				<td>Rua sem nome, 100, bairro sem nome</td>
+																			</tr>
+																			
+																			<tr>
+																				<td>Email</td>
+																				<td><a href="mailto:lucas@gmail.com">lucas@gmail.com</a></td>
+																			</tr>
+																			
+																		</tbody>
+																	</table>
+                  
+																	<a href="#" class="btn btn-primary">Editar Perfil</a>
+																</div>
+															
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>	
 							</div>
 						</div>
-		
-					</div>
-					
-					<div class="container-fluid">
-			
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h3 class="panel-title">Desempenho</h3>
-							</div>
-							
-							<div class="panel-body">
-								
-								<div class="progress">
-									<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-										 <label for="aria-valuenow">60%</label>
-									</div>
-									<div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
-										 <label for="aria-valuenow">40%</label>
-									</div>
+						
+						<div id="menu1" class="tab-pane fade">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<h3>Nível</h3>
+									<p>1</p>
 								</div>
-							
 							</div>
-							
 						</div>
-		
-					</div>
 					
-					<div class="container-fluid">
-			
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h3 class="panel-title">Questões Incorretas</h3>
-							</div>
-							
-							<div class="panel-body">
-								<h3>
-									<span class="label label-danger">1</span>
-									<span class="label label-danger">2</span>
-									<span class="label label-danger">4</span>
-									<span class="label label-danger">9</span>
-								</h3>
-							</div>
-							
-						</div>
-		
 					</div>
-					
-					<div class="container-fluid">
-						<button type="button" class="btn btn-primary">Refazer esta etapa</button>
-						<button type="button" class="btn btn-success">Próxima Etapa</button>
-					</div>
-				
 				</div>
 			</div>
-		
 		</div>
-		
 	</body>
 </html>
