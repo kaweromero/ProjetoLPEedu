@@ -3,22 +3,26 @@
 
     //$nome_de_usuario = $_POST['nome_de_usuario'];
     //$pontuacao = $_POST['pontuacao'];
-    //$numero_da_questao = $_POST['numero_da_questao'];
+	//$questao_id = $_POST['questao_id'];
+	
+    $questao_id = 8;
 
     $nome_de_usuario = "Nome do Usuário";
     $pontuacao = "P.: 0000";
-
-    /* Chamando a questao original do dados do banco (abaixo está um exemplo). */
-    $questao = "Agora levando em conta o conhecimento que adquirimos até aqui, vamos realizar nossa primeira junção de comandos!".
-                "Use o comando ls, depois crie um diretório chamado Hello, acesse o diretório chamado Hello com o comando cd, crie".
-                "um segundo diretório chamado World, acesse o diretório World, utilize o comando cd e volte para a raiz dos".
-                "diretórios agora use o comando rm -rf Hello, para deletar o diretório Hello e todos os seus sub-diretórios.";
-    $algoritmo = array("() [Escrever um texto]",
-                "() [Escrever um texto]",
-                "() [Escrever um texto]",
-                "() [Escrever um texto]",
-                "() () () [Hello]");
-    $blocos = array("mkdir", "cd", "ls", "rmdir", "rm", "-rf");
+	
+	require_once('../../model/php/script_questoes_jogo.php');
+	
+	$contents_decode = json_decode($contents);
+	
+	$questao = $contents_decode->questao;
+	
+	$algoritmoString = $contents_decode->algoritmo;
+	$algoritmoRespondidoString = $contents_decode->algoritmo_respondido;
+	$blocosString = $contents_decode->blocos;
+	
+	$algoritmo = explode(" | ", $algoritmoString);
+	$algoritmoRespondido = explode(" | ", $algoritmoRespondidoString);
+	$blocos = explode(" | ", $blocosString);
 ?>
 <!-- Final: Leitura da questão no banco de dados. -->
 
@@ -58,7 +62,10 @@
 
             // Controle do conteúdo do jogo.
             .controller('ConteudoDoJogo', ['$scope', '$sce', function($scope, $sce) {
-
+				
+				$scope.gerar_jogo = function(){
+                
+				
                 // Chama os dados lidos pelo banco de dados no PHP.
                 $scope.questao = '<?php echo $questao; ?>';
                 $scope.algoritmo = JSON.parse('<?php echo json_encode($algoritmo); ?>');
@@ -111,6 +118,9 @@
                 $scope.blocos_html = $sce.trustAsHtml($scope.blocos_html);
 
                 /* Final: Prepara o código HTML para apresentação na interface do usuário. */
+				};
+				
+				$scope.gerar_jogo();
 
                 // Linhas clicadas na caixa do algoritmo e na caixa de blocos.
                 $scope.linha_selecionada_algoritmo = -1;
