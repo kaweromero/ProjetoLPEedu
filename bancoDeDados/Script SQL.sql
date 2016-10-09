@@ -1,5 +1,5 @@
 -- MySQL Workbench Synchronization
--- Generated: 2016-10-08 23:35
+-- Generated: 2016-10-08 23:54
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
@@ -40,11 +40,18 @@ CREATE TABLE IF NOT EXISTS `projetolpeedu`.`Questao` (
   `algoritmoVazio` VARCHAR(100) NOT NULL,
   `algoritmoCompleto` VARCHAR(100) NULL DEFAULT NULL,
   `idEnunciado` INT(11) NOT NULL,
+  `idEtapa` INT(11) NOT NULL,
   PRIMARY KEY (`idQuestao`),
   INDEX `fk_Questao_Enunciado_idx` (`idEnunciado` ASC),
+  INDEX `fk_Questao_Etapa1_idx` (`idEtapa` ASC),
   CONSTRAINT `fk_Questao_Enunciado`
     FOREIGN KEY (`idEnunciado`)
     REFERENCES `projetolpeedu`.`Enunciado` (`idEnunciado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Questao_Etapa1`
+    FOREIGN KEY (`idEtapa`)
+    REFERENCES `projetolpeedu`.`Etapa` (`idEtapa`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -52,33 +59,15 @@ DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `projetolpeedu`.`Enunciado` (
   `idEnunciado` INT(11) NOT NULL,
-  `enunciado` VARCHAR(1000) NOT NULL,
+  `enunciado` VARCHAR(500) NOT NULL,
   PRIMARY KEY (`idEnunciado`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `projetolpeedu`.`Etapa` (
   `idEtapa` INT(11) NOT NULL,
-  `nivelDaEtapa` INT(11) NULL DEFAULT NULL,
+  `nivelDaEtapa` INT(11) NOT NULL,
   PRIMARY KEY (`idEtapa`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE IF NOT EXISTS `projetolpeedu`.`Etapa_has_Questao` (
-  `Etapa_idEtapa` INT(11) NOT NULL,
-  `Questao_idQuestao` INT(11) NOT NULL,
-  INDEX `fk_Etapa_has_Questao_Etapa1_idx` (`Etapa_idEtapa` ASC),
-  INDEX `fk_Etapa_has_Questao_Questao1_idx` (`Questao_idQuestao` ASC),
-  CONSTRAINT `fk_Etapa_has_Questao_Etapa1`
-    FOREIGN KEY (`Etapa_idEtapa`)
-    REFERENCES `projetolpeedu`.`Etapa` (`idEtapa`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Etapa_has_Questao_Questao1`
-    FOREIGN KEY (`Questao_idQuestao`)
-    REFERENCES `projetolpeedu`.`Questao` (`idQuestao`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
