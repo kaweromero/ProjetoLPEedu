@@ -1,5 +1,5 @@
 -- MySQL Workbench Synchronization
--- Generated: 2016-10-16 11:39
+-- Generated: 2016-10-16 11:52
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
@@ -54,11 +54,11 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `projetolpeedu`.`Enunciado` (
   `idEnunciado` INT(11) NOT NULL AUTO_INCREMENT,
   `enunciado` VARCHAR(5000) NOT NULL,
-  `Etapa_idEtapa` INT(11) NOT NULL,
+  `idEtapa` INT(11) NOT NULL,
   PRIMARY KEY (`idEnunciado`),
-  INDEX `fk_Enunciado_Etapa1_idx` (`Etapa_idEtapa` ASC),
+  INDEX `fk_Enunciado_Etapa1_idx` (`idEtapa` ASC),
   CONSTRAINT `fk_Enunciado_Etapa1`
-    FOREIGN KEY (`Etapa_idEtapa`)
+    FOREIGN KEY (`idEtapa`)
     REFERENCES `projetolpeedu`.`Etapa` (`idEtapa`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -66,9 +66,8 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `projetolpeedu`.`Etapa` (
-  `idEtapa` INT(11) NOT NULL,
+  `idEtapa` INT(11) NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(5000) NULL DEFAULT NULL,
-  `nivelDaEtapa` INT(11) NOT NULL,
   PRIMARY KEY (`idEtapa`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
