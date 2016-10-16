@@ -40,3 +40,13 @@
 .margemTop30px {
 	margin-top: 30px;
 }
+
+.tamanho {
+	width: 720px;
+}
+
+#teste {
+    display:inline-block;
+    color: white;
+    line-height: 540px;
+}
