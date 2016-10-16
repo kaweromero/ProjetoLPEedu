@@ -19,6 +19,12 @@
   color: #ffffff;
 }
 
+.panel-default > .panel-body-corPreta{
+  background-image: none;
+  background-color: #4D4D4D;
+  color: #ffffff;
+}
+
 .textoBranco {
 	color: #ffffff;
 }
@@ -29,4 +35,8 @@
 
 .backgroudBranco {
 	backgroud-color: #ffffff;
+}
+
+.corPreta {
+	background-color: #ffffff;
 }
