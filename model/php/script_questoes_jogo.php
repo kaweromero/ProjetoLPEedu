@@ -3,7 +3,7 @@
     error_reporting(0);
 
     // Abre a base de dados
-    require_once ("database_open.php");
+    require_once("fechar_conexao.php");
 
     $array_questoes = array();
 
@@ -55,6 +55,6 @@
     $contents = json_encode($array_questoes, JSON_UNESCAPED_UNICODE);
 
     // Fecha a base de dados.
-    require_once ("database_exit.php");
+    require_once("abrir_conexao.php");
 
 ?>
