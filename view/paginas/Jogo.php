@@ -1,28 +1,40 @@
 <!-- Início: Leitura da questão no banco de dados. -->
 <?php
 
-    //$nome_de_usuario = $_POST['nome_de_usuario'];
-    //$pontuacao = $_POST['pontuacao'];
-	//$questao_id = $_POST['questao_id'];
-	
-    $questao_id = 8;
+    error_reporting(0);
 
-    $nome_de_usuario = "Nome do Usuário";
-    $pontuacao = "P.: 0000";
-	
-	require_once('../../model/php/script_questoes_jogo.php');
-	
-	$contents_decode = json_decode($contents);
-	
-	$questao = $contents_decode->questao;
-	
-	$algoritmoString = $contents_decode->algoritmo;
-	$algoritmoRespondidoString = $contents_decode->algoritmo_respondido;
-	$blocosString = $contents_decode->blocos;
-	
-	$algoritmo = explode(" | ", $algoritmoString);
-	$algoritmoRespondido = explode(" | ", $algoritmoRespondidoString);
-	$blocos = explode(" | ", $blocosString);
+    // Requisições recebidas.
+    $nome_de_usuario = $_POST['nome_de_usuario'];
+    $pontuacao = $_POST['pontuacao'];
+    $questao_id = $_POST['questao_id'];
+
+    // Caso os atributos sejam inválidos.
+    if (!isset($nome_de_usuario)){
+        $nome_de_usuario = "Nome";
+    }
+    if (!isset($pontuacao)){
+        $pontuacao = 0;
+    }
+    if (!isset($questao_id)){
+        $questao_id = 1;
+    }
+
+    // Chama o leitor da questão no banco.
+    require_once('../../model/php/script_questoes_jogo.php');
+
+    // Decodificando o JSON dos valores lidos.
+    $contents_decode = json_decode($contents);
+
+    // Leitura da questao: Pegando dados do JSON.
+    $enunciado = $contents_decode->enunciado;
+    $algoritmoString = $contents_decode->algoritmo;
+    $algoritmoRespondidoString = $contents_decode->algoritmo_respondido;
+    $blocosString = $contents_decode->blocos;
+
+    // Separa o algoritmo e os blocos para o array de linhas.
+    $algoritmo = explode(" | ", $algoritmoString);
+    $algoritmoRespondido = explode(" | ", $algoritmoRespondidoString);
+    $blocos = explode(" | ", $blocosString);
 ?>
 <!-- Final: Leitura da questão no banco de dados. -->
 
@@ -34,7 +46,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo</title>
-
 
     <link href="../stylesheet/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
@@ -48,79 +59,78 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.js"></script>
 
+    <script>
+
+        var proxima_questao = function(nome_de_usuario, pontuacao, id_questao) {
+            var stringForm = "<form action='jogo.php' method='POST'>"
+                +"<input type='hidden' name='nome_de_usuario' value='" + nome_de_usuario + "'/>"
+                +"<input type='hidden' name='pontuacao' value='" + pontuacao + "'/>"
+                +"<input type='hidden' name='questao_id' value='" + id_questao + "'/></form>";
+            var form = $(stringForm);
+            $('body').append(form);
+            $(form).submit();
+        };
+
+    </script>
+
     <!-- Início: Parte do script da lógica do jogo. -->
     <script>
         angular.module('Jogo', [])
 
-            // Controle das informações do usuário.
+        // Controle das informações do usuário.
             .controller('InformacoesDoUsuario', function($scope) {
 
                 // Chama os dados lidos pelo banco de dados no PHP.
-                $scope.nomeDeUsuario = '<?php echo $nome_de_usuario; ?>';
-                $scope.pontuacao = '<?php echo $pontuacao; ?>';
+                $scope.nomeDeUsuario = 'Usuário: ' + '<?php echo $nome_de_usuario ?>';
+                $scope.pontuacao = 'Pontuação: ' + '<?php echo $pontuacao; ?>';
             })
 
             // Controle do conteúdo do jogo.
             .controller('ConteudoDoJogo', ['$scope', '$sce', function($scope, $sce) {
-				
-				$scope.gerar_jogo = function(){
-                
-				
-                // Chama os dados lidos pelo banco de dados no PHP.
-                $scope.questao = '<?php echo $questao; ?>';
-                $scope.algoritmo = JSON.parse('<?php echo json_encode($algoritmo); ?>');
-                $scope.blocos = JSON.parse('<?php echo json_encode($blocos); ?>');
 
-                /* Início: Limpa as respostas do algoritmo */
+                $scope.gerar_jogo = function(){
 
-                // Cria um novo algoritmo para a modificação pelo usuário (este será o algoritmo visto e modificado pelo usuário).
-                $scope.algoritmo_usuario = limpar_respostas_algoritmo_Completo($scope.algoritmo);
+                    // Chama os dados lidos pelo banco de dados no PHP.
+                    $scope.questao = '<?php echo $enunciado; ?>';
+                    $scope.algoritmo = JSON.parse('<?php echo json_encode($algoritmo); ?>');
+                    $scope.algoritmo_respondido = JSON.parse('<?php echo json_encode($algoritmoRespondido); ?>');
+                    $scope.blocos = JSON.parse('<?php echo json_encode($blocos); ?>');
 
-                // Método responsável por remover as respostas do algoritmo completo.
-                function limpar_respostas_algoritmo_Completo (algoritmo) {
-                    var algoritmo_modificado = angular.copy(algoritmo);
-                    for (i=0; i < algoritmo_modificado.length; i++){ // Percorre as linhas do algoritmo.
-                        algoritmo_modificado[i] = limpar_respostas_linha_algoritmo(algoritmo_modificado[i]);
+                    // Define o algoritmo que será construído pelo usuário.
+                    $scope.algoritmo_usuario = angular.copy($scope.algoritmo);
+
+                    /* Início: Prepara o código HTML para apresentação na interface do usuário. */
+
+                    $scope.algoritmo_html = '';
+                    $scope.algoritmo_numero_html = '';
+                    $scope.blocos_html = '';
+
+                    // Criar o código HTML a partir da lista de linhas do algoritmo e dos blocos.
+                    for (i=0; i < $scope.algoritmo_usuario.length; i++){
+                        $scope.algoritmo_html += '<a href="#" class="list-group-item" ng-click="clique_linha_algoritmo('+i+')"><span> {{ algoritmo_usuario['+i+'] }} </span></a>';
+                        $scope.algoritmo_numero_html += '<li class="list-group-item"><span>'+(i+1)+'</span></li>';
                     }
-                    return algoritmo_modificado;
-                }
-
-                // Método responsável por remover as respostas de uma linha do algoritmo.
-                function limpar_respostas_linha_algoritmo (linha) {
-                    var linha_modificada = angular.copy(linha);
-                    for (j=0; j < $scope.blocos.length; j++){ // Percorre a lista de blocos.
-                        // Substitui os blocos de resposta, por campos vazios.
-                        linha_modificada = linha_modificada.replace($scope.blocos[j], "");
+                    for (i=0; i < $scope.blocos.length; i++){
+                        $scope.blocos_html += '<a href="#" class="list-group-item" ng-click="clique_linha_bloco('+(i+1)+')"><span> {{ blocos['+i+'] }} </span></a>';
                     }
-                    return linha_modificada;
-                }
 
-                /* Final: Limpa as respostas do algoritmo */
+                    // Converte as strings para código HTML.
+                    $scope.algoritmo_html = $sce.trustAsHtml($scope.algoritmo_html);
+                    $scope.algoritmo_numero_html = $sce.trustAsHtml($scope.algoritmo_numero_html);
+                    $scope.blocos_html = $sce.trustAsHtml($scope.blocos_html);
 
-                /* Início: Prepara o código HTML para apresentação na interface do usuário. */
+                    /* Final: Prepara o código HTML para apresentação na interface do usuário. */
+                };
 
-                $scope.algoritmo_html = '';
-                $scope.algoritmo_numero_html = '';
-                $scope.blocos_html = '';
+                $scope.limpar_jogo = function () {
+                    $scope.questao = '';
+                    $scope.algoritmo_html = $sce.trustAsHtml('<div></div>');
+                    $scope.algoritmo_numero_html = $sce.trustAsHtml('<div></div>');
+                    $scope.blocos_html = $sce.trustAsHtml('<div></div>');
+                };
 
-                // Criar o código HTML a partir da lista de linhas do algoritmo e dos blocos.
-                for (i=0; i < $scope.algoritmo_usuario.length; i++){
-                    $scope.algoritmo_html += '<a href="#" class="list-group-item" ng-click="clique_linha_algoritmo('+i+')"><span> {{ algoritmo_usuario['+i+'] }} </span></a>';
-                    $scope.algoritmo_numero_html += '<li class="list-group-item"><span>'+(i+1)+'</span></li>';
-                }
-                for (i=0; i < $scope.blocos.length; i++){
-                    $scope.blocos_html += '<a href="#" class="list-group-item" ng-click="clique_linha_bloco('+(i+1)+')"><span> {{ blocos['+i+'] }} </span></a>';
-                }
-
-                // Converte as strings para código HTML.
-                $scope.algoritmo_html = $sce.trustAsHtml($scope.algoritmo_html);
-                $scope.algoritmo_numero_html = $sce.trustAsHtml($scope.algoritmo_numero_html);
-                $scope.blocos_html = $sce.trustAsHtml($scope.blocos_html);
-
-                /* Final: Prepara o código HTML para apresentação na interface do usuário. */
-				};
-				
-				$scope.gerar_jogo();
+                // Inicia o jogo.
+                $scope.gerar_jogo();
 
                 // Linhas clicadas na caixa do algoritmo e na caixa de blocos.
                 $scope.linha_selecionada_algoritmo = -1;
@@ -146,16 +156,16 @@
                         if ($scope.linha_selecionada_bloco == 0){
                             // Substitui o primeiro '[Escrever um texto]', pelo texto digitado pelo usuário.
                             $scope.algoritmo_usuario[$scope.linha_selecionada_algoritmo] = $scope.algoritmo_usuario[$scope.linha_selecionada_algoritmo]
-                                .replace("[Escrever um texto]", "["+$scope.entrada_texto+"]");
+                                .replace("[TEXTO]", "["+$scope.entrada_texto+"]");
 
-                        // Clicou para adicionar um bloco.
+                            // Clicou para adicionar um bloco.
                         } else {
                             // Substitui o primeiro '()', pelo bloco escolhido pelo usuário.
                             $scope.algoritmo_usuario[$scope.linha_selecionada_algoritmo] = $scope.algoritmo_usuario[$scope.linha_selecionada_algoritmo]
                                 .replace("()", "("+$scope.blocos[$scope.linha_selecionada_bloco-1]+")");
                         }
 
-                    // Se ele não clicou em um dos dois, apresenta um alerta explicativo.
+                        // Se ele não clicou em um dos dois, apresenta um alerta explicativo.
                     } else {
                         alert("Você deve selecionar a (linha que deseja alterar), em seguida selecionar o (bloco/texto) que deseja adicionar, para então clicar em (Adicionar)!");
                     }
@@ -166,51 +176,79 @@
                     // Verifica se o usuário clicou em uma linha do algoritmo.
                     if ($scope.linha_selecionada_algoritmo != -1){
                         // Substitui a linha modificada, pela mesma linha sem respostas.
-                        $scope.algoritmo_usuario[$scope.linha_selecionada_algoritmo] = limpar_respostas_linha_algoritmo($scope.algoritmo[$scope.linha_selecionada_algoritmo]);
+                        $scope.algoritmo_usuario[$scope.linha_selecionada_algoritmo] = $scope.algoritmo[$scope.linha_selecionada_algoritmo];
                     }
                 };
 
                 // Evento para adicionar uma resposta ao servidor.
                 $scope.clique_enviar_resposta = function () {
-                    // Aqui ficará a correção da resposta do usuário.
-                    alert("Falta realizar a sua correção!");
+
+                    // Informacoes do jogo.
+                    $scope.nomeDeUsuario = '<?php echo $nome_de_usuario ?>';
+                    $scope.pontuacao = '<?php echo $pontuacao; ?>';
+                    $scope.questao_id = '<?php echo $questao_id; ?>';
+
+                    $scope.erro_cometido = false;
+                    $scope.erro_cometido_string = '';
+
+                    // Realiza a correção.
+                    for (i=0; i < $scope.algoritmo_usuario.length; i++){
+                        if ($scope.algoritmo_usuario[i] != $scope.algoritmo_respondido[i]){
+                            $scope.erro_cometido_string += (i+1) + ' |';
+                            $scope.erro_cometido = true;
+                        }
+                    }
+
+                    // Eleva a pontuação do usuário e guarda no banco.
+
+                    // Gera uma nova questão.
+
+                    // Apresenta o feedback.
+                    if ($scope.erro_cometido == true){
+                        alert("Você cometeu um erro nas linhas: | " + $scope.erro_cometido_string);
+                    } else {
+                        alert("Parabéns, você acertou o algoritmo!");
+                    }
+
+                    // Gera uma nova questão.
+                    $scope.pontuacao++;
+                    $scope.questao_id++;
+                    proxima_questao($scope.nomeDeUsuario, $scope.pontuacao, $scope.questao_id);
                 };
             }])
 
             // Diretiva para atualizar a interface criada com o "ng-bind-html".
             .directive('compile',function($compile, $timeout){
-            return{
-                restrict:'A',
-                link: function(scope,elem,attrs){
-                    $timeout(function(){
-                        $compile(elem.contents())(scope);
-                    });
+                return{
+                    restrict:'A',
+                    link: function(scope,elem,attrs){
+                        $timeout(function(){
+                            $compile(elem.contents())(scope);
+                        });
+                    }
                 }
-            }
-        });
+            });
 
     </script>
     <!--Final:  Parte do script da lógica do jogo. -->
 
 </head>
 
-<body ng-app="Jogo" class="bodyCor">
+<body ng-app="Jogo">
+<nav class="navbar navbar-default custom-header">
+    <div class="container-fluid" ng-controller="InformacoesDoUsuario">
 
-	<nav class="navbar navbar-default barraDeMenu">
-		<div class="container-fluid" ng-controller="InformacoesDoUsuario">
+        <div class="navbar-header">
+            <a class="navbar-brand navbar-link" href="#"> <img class="img-circle" src="../imagens/linuxLogo_small.png"></a>
+        </div>
 
-			<div class="navbar-header">
-				<a class="navbar-brand navbar-link" href="#"> <img class="img-circle" src="../imagens/linuxLogo_small.png"></a>
-			</div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <p class="lead navbar-text navbar-right">{{ pontuacao }}</p>
+            <p class="lead show navbar-text navbar-righ">{{ nomeDeUsuario }}</p>
+        </div>
 
-			<div class="collapse navbar-collapse" id="navbar-collapse">
-				<p class="lead navbar-text navbar-right">{{ pontuacao }}</p>
-				<p class="lead show navbar-text navbar-righ">{{ nomeDeUsuario }}</p>
-			</div>
-
-		</div>
-	</nav>
-	
+    </div>
+</nav>
 <div class="container-fluid" ng-controller="ConteudoDoJogo">
     <div class="row">
         <div class="col-md-4">
@@ -242,7 +280,6 @@
                         <div class="list-group">
                             <ul class="list-group">
                                 <div compile ng-bind-html="algoritmo_numero_html"></div>
-
                             </ul>
                         </div>
                     </div>
