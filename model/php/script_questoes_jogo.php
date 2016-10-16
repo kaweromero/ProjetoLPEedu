@@ -3,16 +3,16 @@
     error_reporting(0);
 
     // Abre a base de dados
-    require_once("fechar_conexao.php");
+    require_once("abrir_conexao.php");
 
     $array_questoes = array();
 
     /* Realiza a leitura da questão. */
 
-    $table = "questoes";
+    $table = "enunciado";
 
-    $command = "SELECT questao
-                FROM $table WHERE id_questao='$questao_id';";
+    $command = "SELECT enunciado
+                FROM $table WHERE idEnunciado='$questao_id';";
 
     $execution = $connection->query($command);
 
@@ -22,18 +22,18 @@
     {
         while($read = $execution->fetch_assoc())
         {
-            $array_questoes["questao"] = $read["questao"];
+            $array_questoes["enunciado"] = $read["enunciado"];
         }
     }
 
     /* Faz a leitura da resposta da questao. */
 
-    $table = "respostas";
+    $table = "questao";
 
     $command = "SELECT algoritmo,
                        algoritmo_respondido,
                        blocos
-                FROM $table WHERE id_questao='$questao_id';";
+                FROM $table WHERE idQuestao='$questao_id';";
 
     $execution = $connection->query($command);
 
@@ -55,6 +55,6 @@
     $contents = json_encode($array_questoes, JSON_UNESCAPED_UNICODE);
 
     // Fecha a base de dados.
-    require_once("abrir_conexao.php");
+    require_once("fechar_conexao.php");
 
 ?>
