@@ -194,21 +194,23 @@
 
 </head>
 
-<body ng-app="Jogo">
-<nav class="navbar navbar-default custom-header">
-    <div class="container-fluid" ng-controller="InformacoesDoUsuario">
+<body ng-app="Jogo" class="bodyCor">
 
-        <div class="navbar-header">
-            <a class="navbar-brand navbar-link" href="#"> <img class="img-circle" src="../imagens/linuxLogo_small.png"></a>
-        </div>
+	<nav class="navbar navbar-default barraDeMenu">
+		<div class="container-fluid" ng-controller="InformacoesDoUsuario">
 
-        <div class="collapse navbar-collapse" id="navbar-collapse">
-            <p class="lead navbar-text navbar-right">{{ pontuacao }}</p>
-            <p class="lead show navbar-text navbar-righ">{{ nomeDeUsuario }}</p>
-        </div>
+			<div class="navbar-header">
+				<a class="navbar-brand navbar-link" href="#"> <img class="img-circle" src="../imagens/linuxLogo_small.png"></a>
+			</div>
 
-    </div>
-</nav>
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<p class="lead navbar-text navbar-right">{{ pontuacao }}</p>
+				<p class="lead show navbar-text navbar-righ">{{ nomeDeUsuario }}</p>
+			</div>
+
+		</div>
+	</nav>
+	
 <div class="container-fluid" ng-controller="ConteudoDoJogo">
     <div class="row">
         <div class="col-md-4">
