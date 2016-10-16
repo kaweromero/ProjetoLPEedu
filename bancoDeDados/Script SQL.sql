@@ -1,5 +1,5 @@
 -- MySQL Workbench Synchronization
--- Generated: 2016-10-08 23:54
+-- Generated: 2016-10-16 09:57
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
@@ -37,8 +37,9 @@ DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `projetolpeedu`.`Questao` (
   `idQuestao` INT(11) NOT NULL,
-  `algoritmoVazio` VARCHAR(100) NOT NULL,
-  `algoritmoCompleto` VARCHAR(100) NULL DEFAULT NULL,
+  `algoritmo` VARCHAR(5000) NOT NULL,
+  `algoritmo_respondido` VARCHAR(5000) NULL DEFAULT NULL,
+  `blocos` VARCHAR(5000) NULL DEFAULT NULL,
   `idEnunciado` INT(11) NOT NULL,
   `idEtapa` INT(11) NOT NULL,
   PRIMARY KEY (`idQuestao`),
