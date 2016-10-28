@@ -12,9 +12,8 @@
 		<!-- Bootstrap -->
 		<link href="../stylesheet/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="../stylesheet/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 		
 		<!-- importando os css do projeto -->
 		<link href="../stylesheet/imagens.css" rel="stylesheet">
@@ -41,9 +40,9 @@
 					<ul class="nav navbar-nav">
 					
 						<!-- links do menu-->
-						<li><a href="index.html">Início</a></li>
-						<li><a href="sobre.html">Sobre</a></li>
-						<li><a href="#">Guia do Jogo</a></li>
+						<li><a href="index.php">Início</a></li>
+						<li><a href="sobre.php">Sobre</a></li>
+						<li><a href="guia_jogo.php">Guia do Jogo</a></li>
 					</ul>
 					
 					<!-- parte direita da barra de menu -->
@@ -57,15 +56,15 @@
 								<li>
 									<div class="row">
 										<div class="col-md-12">
-											<form class="form" role="form" method="post" action="#" accept-charset="UTF-8" id="login-nav">
+											<form class="form" role="form" method="post" action="../../model/php/login.php" accept-charset="UTF-8" id="login-nav">
 												<div class="form-group">
 													<label class="sr-only" for="email">E-mail</label>
-													<input type="email" class="form-control" id="email" placeholder="E-mail">
+													<input type="email" class="form-control" id="email" name="login_email" placeholder="E-mail">
 												</div>
 												
 												<div class="form-group">
 													<label class="sr-only" for="senha">Senha</label>
-													<input type="password" class="form-control" id="senha" placeholder="Senha">
+													<input type="password" class="form-control" id="senha" name="login_senha" placeholder="Senha">
 													<div class="help-block text-right"><a href="#">Esqueceu a senha?</a></div>
 												</div>
 												<div class="form-group">
@@ -80,7 +79,7 @@
 										</div>
 										
 										<div class="bottom text-center">
-											Novo aqui? <a href="cadastro.html"><b>Se cadastre</b></a>
+											Novo aqui? <a href="cadastro.php"><b>cadastre-se</b></a>
 										</div>
 									</div>
 								</li>
@@ -106,7 +105,7 @@
 				
 				<!-- Header do panel de cadastro -->
 				<div class="panel-heading panel-heading-corPreta">
-					<h4>Cadastro no [Nome do Sistema]</h4>
+					<h4>Cadastro no [LeNux]</h4>
 				</div>
 				
 				<!-- Corpo do panel de cadastro -->
@@ -115,10 +114,10 @@
 					<!-- Action é acionado após clicar no botão de CRIAR CONTA -->
 					<!-- O sistema direciona para a próxima página a ser chamada -->
 					<!-- Início do formulário -->
-					<form action="index.html" method="post" action="PHP/novoRegistro.php" >
+					<form action="../../model/php/createUser.php" method="post" id= "formCadastro" onsubmit="clearFields();">
 						<div class="input-group">
 							<span class="input-group-addon" id="nome">Nome</span>
-							<input type="text" class="form-control" placeholder="Nome do Usuário" aria-describedby="nome" name="nome">
+							<input type="text" class="form-control" placeholder="Nome do Usuário" aria-describedby="nome" name="nome" required="">
 						</div>
 						
 						<!-- pular linha -->
@@ -126,7 +125,7 @@
 						
 						<div class="input-group">
 							<span class="input-group-addon" id="email">E-Mail</span>
-							<input type="text" class="form-control" placeholder="E-Mail" aria-describedby="email" name="email">
+							<input type="email" class="form-control" placeholder="E-Mail" aria-describedby="email" name="email" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
 						</div>
 						
 						<!-- pular linha -->
@@ -134,12 +133,12 @@
 						
 						<div class="input-group">
 							<span class="input-group-addon" id="dataDeNascimento">Data de Nascimento</span>
-							<input type="date" class="form-control" placeholder="" aria-describedby="dataDeNascimento" name="dataDeNascimento">
+							<input type="date" class="form-control" placeholder="" aria-describedby="dataDeNascimento" name="dataDeNascimento" id="input_dataNascimento" required="">
 
 							<span class="input-group-addon" id="genero">Gênero</span>
-							<select class="form-control" for="genero" name="genero">
-								<option>Feminino</option>
-								<option>Masculino</option>
+							<select class="form-control" name="genero">
+								<option value="feminino">Feminino</option>
+								<option value="masculino">Masculino</option>
 							</select>
 						</div>
 						
@@ -147,11 +146,11 @@
 						<p></p>
 						
 						<div class="input-group">
-							<span class="input-group-addon" id="senha1">Senha</span>
-							<input type="password" class="form-control" placeholder="Senha" aria-describedby="senha" name="senha">
+							<span class="input-group-addon">Senha</span>
+							<input type="password" class="form-control" placeholder="Confirme sua senha" aria-describedby="senha" id="senha1" name="senha1" required=""> 
 							
-							<span class="input-group-addon" id="senha2">Confirmar Senha</span>
-							<input type="password" class="form-control" placeholder="Confirme sua senha" aria-describedby="senha2" name="senha2">
+							<span class="input-group-addon">Confirmar Senha</span>
+							<input type="password" class="form-control" placeholder="Confirme sua senha" aria-describedby="senha2" id="senha2" name="senha2" required=""> 
 						</div>
 						
 						<!-- pular linha -->
@@ -165,7 +164,7 @@
 						<p></p>
 						
 						<!-- Botão de Submit -->
-						<button type="submit" class="btn btn-primary">Criar Conta</button>
+						<button type="submit" class="btn btn-primary" formtarget="_blank" onclick="return passwordValidateClick()";>Criar Conta</button>
 					
 					<!-- fim do formulário -->
 					</form>
@@ -180,4 +179,9 @@
 		</div>
 
 	</body>
+	<script src="../javascript/jquery-3.1.1.min.js"></script>
+	<script src="../stylesheet/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="../javascript/jquery.maskedinput.js"></script>
+	<script src="../javascript/masks.js"></script>
+	<script src="../javascript/actionsCadastro.js"></script>
 </html>

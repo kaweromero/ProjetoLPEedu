@@ -1,16 +1,18 @@
 <!-- Início: Leitura da questão no banco de dados. -->
 <?php
-
+	include_once '../../model/php/sessionVerify.php';
+	
     error_reporting(0);
 
     // Requisições recebidas.
-    $nome_de_usuario = $_POST['nome_de_usuario'];
+    $nome_do_usuario = ucfirst($logado);
+
     $pontuacao = $_POST['pontuacao'];
     $questao_id = $_POST['questao_id'];
 
     // Caso os atributos sejam inválidos.
     if (!isset($nome_de_usuario)){
-        $nome_de_usuario = "Nome";
+        $nome_de_usuario = "Usuario";
     }
     if (!isset($pontuacao)){
         $pontuacao = 0;
@@ -61,11 +63,20 @@
 
     <script>
 
-        var proxima_questao = function(nome_de_usuario, pontuacao, id_questao) {
+        var proxima_questao = function(pontuacao, id_questao) {
             var stringForm = "<form action='jogo.php' method='POST'>"
-                +"<input type='hidden' name='nome_de_usuario' value='" + nome_de_usuario + "'/>"
                 +"<input type='hidden' name='pontuacao' value='" + pontuacao + "'/>"
                 +"<input type='hidden' name='questao_id' value='" + id_questao + "'/></form>";
+            var form = $(stringForm);
+            $('body').append(form);
+            $(form).submit();
+        };
+
+        var gerar_relatorio = function(pontuacao, id_etapa, questoes_respondidas) {
+            var stringForm = "<form action='avaliacao.php' method='POST'>"
+                +"<input type='hidden' name='pontuacao' value='" + pontuacao + "'/>"
+                +"<input type='hidden' name='id_etapa' value='" + id_etapa + "'/>"
+                +"<input type='hidden' name='questoes_respondidas' value='" + questoes_respondidas + "'/></form>";
             var form = $(stringForm);
             $('body').append(form);
             $(form).submit();
@@ -81,7 +92,7 @@
             .controller('InformacoesDoUsuario', function($scope) {
 
                 // Chama os dados lidos pelo banco de dados no PHP.
-                $scope.nomeDeUsuario = 'Usuário: ' + '<?php echo $nome_de_usuario ?>';
+                $scope.nomeDeUsuario = 'Usuário: ' + '<?php echo $nome_do_usuario ?>'; //esse dado deve ser da sessão mesmo!!!
                 $scope.pontuacao = 'Pontuação: ' + '<?php echo $pontuacao; ?>';
             })
 
@@ -184,7 +195,7 @@
                 $scope.clique_enviar_resposta = function () {
 
                     // Informacoes do jogo.
-                    $scope.nomeDeUsuario = '<?php echo $nome_de_usuario ?>';
+                    $scope.nomeDeUsuario = '<?php echo $nome_do_usuario ?>';
                     $scope.pontuacao = '<?php echo $pontuacao; ?>';
                     $scope.questao_id = '<?php echo $questao_id; ?>';
 
@@ -199,21 +210,24 @@
                         }
                     }
 
-                    // Eleva a pontuação do usuário e guarda no banco.
-
-                    // Gera uma nova questão.
-
                     // Apresenta o feedback.
                     if ($scope.erro_cometido == true){
                         alert("Você cometeu um erro nas linhas: | " + $scope.erro_cometido_string);
                     } else {
+                        $scope.pontuacao++;
                         alert("Parabéns, você acertou o algoritmo!");
                     }
 
-                    // Gera uma nova questão.
-                    $scope.pontuacao++;
-                    $scope.questao_id++;
-                    proxima_questao($scope.nomeDeUsuario, $scope.pontuacao, $scope.questao_id);
+                    // Caso o id seja igual a 10. Gera o relatório.
+                    if ($scope.questao_id == 10){
+
+                        gerar_relatorio($scope.pontuacao, '1', $scope.questao_id);
+
+                    // Caso contrário, Gera uma nova questão.
+                    } else {
+                        $scope.questao_id++;
+                        proxima_questao($scope.pontuacao, $scope.questao_id);
+                    }
                 };
             }])
 
@@ -231,7 +245,7 @@
 
     </script>
     <!--Final:  Parte do script da lógica do jogo. -->
-
+	
 </head>
 
 <body ng-app="Jogo">

@@ -20,7 +20,6 @@
 		<link href="../stylesheet/imagens.css" rel="stylesheet">
 		<link href="../stylesheet/cores.css" rel="stylesheet">
 		<link href="../stylesheet/formatacao.css" rel="stylesheet">
-		
 			
 	</head>
 	
@@ -42,30 +41,33 @@
 					
 						<!-- links do menu-->
 						<li class="componenteDoMenuAtivado"><a href="#">Início</a></li>
-						<li><a href="sobre.html">Sobre</a></li>
-						<li><a href="#">Guia do Jogo</a></li>
+						<li><a href="sobre.php">Sobre</a></li>
+						<li><a href="guia_jogo.php">Guia do Jogo</a></li>
 					</ul>
 					
 					<!-- parte direita da barra de menu -->
 					<ul class="nav navbar-nav navbar-right">
-					
+						<li id="li_errorLogin"><label id="lb_errorLogin">*usuário ou senha inválidos*</label></li>
 						<!-- links do menu-->
-						<li><a href="cadastro.html">Cadastrar</a></li>
+						<?php 
+							include_once '../../model/php/loginError.php';
+						?>	
+						<li><a href="cadastro.php">Cadastrar</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Entrar<span class="caret"></span></a>
 							<ul id="login-dropdown" class="dropdown-menu">
 								<li>
 									<div class="row">
 										<div class="col-md-12">
-											<form class="form" role="form" method="post" action="#" accept-charset="UTF-8" id="login-nav">
+											<form class="form" role="form" method="post" action="../../model/php/login.php" accept-charset="UTF-8" id="login-nav">
 												<div class="form-group">
 													<label class="sr-only" for="email">E-mail</label>
-													<input type="email" class="form-control" id="email" placeholder="E-mail">
+													<input type="email" class="form-control" id="email" name="login_email" placeholder="E-mail">
 												</div>
 												
 												<div class="form-group">
 													<label class="sr-only" for="senha">Senha</label>
-													<input type="password" class="form-control" id="senha" placeholder="Senha">
+													<input type="password" class="form-control" id="senha" name="login_senha" placeholder="Senha">
 													<div class="help-block text-right"><a href="#">Esqueceu a senha?</a></div>
 												</div>
 												<div class="form-group">
@@ -80,7 +82,7 @@
 										</div>
 										
 										<div class="bottom text-center">
-											Novo aqui? <a href="cadastro.html"><b>Se cadastre</b></a>
+											Novo aqui? <a href="cadastro.php"><b>cadastre-se</b></a>
 										</div>
 									</div>
 								</li>
@@ -98,7 +100,9 @@
 		</div>
 		
 		<div class="textoCentralizado margemTop20px">
-			<h1>Proposta do [Nome do Sistema]</h1>
+		  <h1>Proposta do [LeNux]</h1>
+		  <p class="h1">Aprenda as habilidades necessárias para conhecer os comandos do terminal do sistema operacional Linux.</p>
+		  <p>&nbsp;</p>
 		</div>
 		
 		<!-- Descrições do sistema -->
@@ -109,11 +113,28 @@
 					<div class="panel panel-default">
 					
 						<div class="panel-heading panel-heading-corPreta">
-							<h3 class="panel-title">Título (pode colocar imagem também)</h3>
+						  <h3 class="panel-title">O que é?</h3>
+						</div>
+					  <div class="panel-body" align="center"><img src="../imagens/piguim.png" alt="" width="250" height="250"/>
+                        
+                        </div>
+					  <div class="panel-body">
+					    <h5>É um software com o propósito de auxiliar pessoas com interesse em aprender os comandos do terminal do sistema operacional do Linux. Afim de que, por meio desse software os usuários aprendam diversos comandos e sejam capazes de utilizar o terminal de forma mais fácil, rápida e sem grandes dificuldades. </h5>
+					  </div>
+						
+					</div>
+				</div>
+				
+				<div class="col-md-4">			
+					<div class="panel panel-default">
+					
+						<div class="panel-heading panel-heading-corPreta">
+						  <h3 class="panel-title">Qual o objetivo?</h3>
 						</div>
 						
-						<div class="panel-body">
-							<h5>Descrição, aqui você descreve alguma coisa. Pode falar de tudo, qualquer coisa, isso é só um teste do texto</h5>
+						<div class="panel-body" style="padding-bottom: 49px">
+						  <div class="panel-body" align="center"><img src="../imagens/imagem2.jpg" width="250" height="250" alt=""/></div>
+						  <h5>A<span style="text-align: justify">uxiliar usuários do Linux à familiarizar-se com os comandos do terminal de uma forma interativa e bastante simples. O usuário aprenderá se divertindo, fazendo com que a sua curva de aprendizagem seja mais eficaz e menos cansativa.</span></h5>
 						</div>
 						
 					</div>
@@ -123,32 +144,39 @@
 					<div class="panel panel-default">
 					
 						<div class="panel-heading panel-heading-corPreta">
-							<h3 class="panel-title">Título</h3>
+						  <h3 class="panel-title">Quem é o público alvo?</h3>
 						</div>
+                        <table width="260" border="0" align="center">
+						    <tbody>
+						      <tr>
+						        <td>
+                                <div class="panel-body">
+						  
+						 			 <img src="../imagens/menino.png" alt="" width="250"/>
+                        
+                        		</div>
+                                </td>
+					          </tr>
+						      <tr>
+						        <td align="center" valign="bottom">
+                                	<div class="panel-body">
+<p>&nbsp;</p>
+                                	  <p>&nbsp;</p>
+                                	  <h5 style="text-align: justify">Tem como público alvo usuários do Sistema Operacional Linux, estudantes, professores e afins da área. </h5>
+                                	  <p>&nbsp;</p>
+                                	</div>
+                                </td>
+					          </tr>
+					        </tbody>
+					      </table>
 						
-						<div class="panel-body">
-							<h5>Descrição, aqui você descreve alguma coisa. Pode falar de tudo, qualquer coisa, isso é só um teste do texto</h5>
-						</div>
 						
-					</div>
-				</div>
-				
-				<div class="col-md-4">			
-					<div class="panel panel-default">
-					
-						<div class="panel-heading panel-heading-corPreta">
-							<h3 class="panel-title">Título</h3>
-						</div>
-						
-						<div class="panel-body">
-							<h5>Descrição, aqui você descreve alguma coisa. Pode falar de tudo, qualquer coisa, isso é só um teste do texto</h5>
-						</div>
 						
 					</div>
 				</div>
 				
 			</div>
 		</div>
-		
+
 	</body>
 </html>

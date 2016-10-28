@@ -22,7 +22,9 @@
 <link href="../stylesheet/imagens.css" rel="stylesheet">
 <link href="../stylesheet/cores.css" rel="stylesheet">
 <link href="../stylesheet/formatacao.css" rel="stylesheet">
-
+<?php 
+	include_once '../../model/php/sessionVerify.php';
+?>
 
 </head>
 
@@ -43,55 +45,13 @@
 				<ul class="nav navbar-nav">
 
 					<!-- links do menu-->
-					<li><a href="index.html">Início</a></li>
-					<li><a href="#">Sobre</a></li>
-					<li><a href="#">Guia do Jogo</a></li>
+					<li><a href="index.php">Início</a></li>
+					<li><a href="sobre.php">Sobre</a></li>
+					<li><a href="guia_jogo.php">Guia do Jogo</a></li>
 				</ul>
 
 				<!-- parte direita da barra de menu -->
-				<ul class="nav navbar-nav navbar-right">
-
-					<!-- links do menu-->
-					<li><a href="cadastro.html">Cadastrar</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Entrar<span class="caret"></span></a>
-						<ul id="login-dropdown" class="dropdown-menu">
-							<li>
-								<div class="row">
-									<div class="col-md-12">
-										<form class="form" role="form" method="post" action="#"
-											accept-charset="UTF-8" id="login-nav">
-											<div class="form-group">
-												<label class="sr-only" for="email">E-mail</label> <input
-													type="email" class="form-control" id="email"
-													placeholder="E-mail">
-											</div>
-
-											<div class="form-group">
-												<label class="sr-only" for="senha">Senha</label> <input
-													type="password" class="form-control" id="senha"
-													placeholder="Senha">
-												<div class="help-block text-right">
-													<a href="#">Esqueceu a senha?</a>
-												</div>
-											</div>
-											<div class="form-group">
-												<button type="submit" class="btn btn-primary btn-block">Entrar</button>
-											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox"> mantenha-me
-													conectado
-												</label>
-											</div>
-										</form>
-									</div>
-
-									<div class="bottom text-center">
-										Novo aqui? <a href="cadastro.html"><b>Se cadastre</b></a>
-									</div>
-								</div>
-							</li>
-						</ul></li>
+				<ul class="nav navbar-nav navbar-right">				
 				</ul>
 			</div>
 		</div>
@@ -107,8 +67,8 @@
 		<div class="panel panel-default">
 			<div class="panel-body panel-body-corPreta">
 				<div class="textoCentralizado" id="teste">
-					<h4>Nome do Jogador:</h4>
-					<h4 class="margemTop30px" align="left">Etapa:</h4>
+					<h4>Nome do Jogador: <?php echo ucfirst($logado); ?></h4>
+					<h4 class="margemTop30px" align="left">Etapa: <?php echo ucfirst($idEtapa); ?></h4>
 				</div>
 			</div>
 		</div>
@@ -118,12 +78,13 @@
 		<div class="btn-group btn-group-justified" role="group"
 			aria-label="...">
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-danger">Sair</button>
+				<button type="button" class="btn btn-danger" id="btSairJogo">Sair</button>
 			</div>
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-primary">Iniciar</button>
+				<button type="button" class="btn btn-primary" id="btIniciar">Iniciar</button>
 			</div>
 		</div>
 	</div>
 </body>
+<script src="../javascript/actionsPreJogo.js"></script>
 </html>

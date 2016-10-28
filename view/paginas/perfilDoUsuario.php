@@ -41,9 +41,9 @@
 					<ul class="nav navbar-nav textoBranco">
 					
 						<!-- links do menu-->
-						<li><a href="index.html">Início</a></li>
-						<li><a href="sobre.html">Sobre</a></li>
-						<li><a href="#">Guia do Jogo</a></li>
+						<li><a href="index.php">Início</a></li>
+						<li><a href="sobre.php">Sobre</a></li>
+						<li><a href="guia_jogo.php">Guia do Jogo</a></li>
 					</ul>
 					
 					<!-- parte direita da barra de menu -->
@@ -156,7 +156,7 @@
 													
 												<div class="panel panel-info">
 													<div class="panel-heading">
-														<h3 class="panel-title">Lucas Milleno</h3>
+														<h3 class="panel-title">Lucas Myllenno</h3>
 													</div>
 														
 													<div class="panel-body">
